@@ -32,7 +32,6 @@ async def register_user(db: Session, user_data: UserRegistration):
         file_path = save_profile_picture(user_data.profile_picture)
         new_profile = Profile(user_id=new_user.id, profile_picture=file_path)
         db.add(new_profile)
-        db.commit()
         # Save the changes to the database
         db.commit()
     return format_user(new_user)
