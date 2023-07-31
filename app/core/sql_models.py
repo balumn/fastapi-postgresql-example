@@ -27,6 +27,12 @@ class Profile(Base):
 
 
 def model_to_dict(model):
+    """
+    A generic function that would convert all the basic fields of any models to json.
+
+    :param model:
+    :return:
+    """
     if not model:
         return None
 
