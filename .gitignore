@@ -1,1 +1,4 @@
+.env
 .idea/
+db/versions/
+profile_pictures/
