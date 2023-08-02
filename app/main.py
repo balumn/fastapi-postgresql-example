@@ -1,10 +1,13 @@
 import logging
+import warnings
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 
 from app.v1.api import api_router as v1_router
+
+warnings.filterwarnings('ignore')
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(lineno)d - %(message)s",

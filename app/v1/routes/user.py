@@ -34,7 +34,8 @@ async def register_user(
 
     try:
         response.data = await register_user_service(db, user_data)
-        response.status = "User created successfully"
+        response.message = "User created successfully"
+        response.status = "success"
     except Exception as e:
         db.rollback()
         logging.error(e, exc_info=True)

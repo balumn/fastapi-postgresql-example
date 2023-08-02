@@ -1,10 +1,13 @@
 import os
 from sqlalchemy.orm import Session
+from passlib.context import CryptContext
 
 from fastapi import UploadFile
 from app.core.sql_models import Users, Profile, model_to_dict
 from app.core.schemas import UserRegistration
 from app.config import settings
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def format_user(user: Users):
@@ -16,13 +19,15 @@ def format_user(user: Users):
     """
     user_dict = model_to_dict(user)
     user_dict["profile_picture"] = user.profile.profile_picture
+    user_dict.pop("password")
     return user_dict
 
 
 async def register_user(db: Session, user_data: UserRegistration):
+    password = hash_password(user_data.password)
     # Create a new user in the database
     new_user = Users(full_name=user_data.full_name, email=user_data.email,
-                     password=user_data.password, phone=user_data.phone)
+                     password=password, phone=user_data.phone)
     db.add(new_user)
     db.commit()
 
@@ -60,3 +65,7 @@ def fetch_by_id(db: Session, user_id: int):
     if not user_object:
         return None
     return format_user(user_object)
+
+
+def hash_password(password: str):
+    return pwd_context.hash(password)
