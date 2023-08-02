@@ -8,7 +8,7 @@ Follow these steps to set up the project on your local machine:
 
 1. Basic Setup:
     ```
-    git@github.com:balumn/fastapi-postgresql-example.git
+    git clone git@github.com:balumn/fastapi-postgresql-example.git
     cd fastapi-user-registration
     python3 -m venv venv
     source venv/bin/activate
